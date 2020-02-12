@@ -47,12 +47,12 @@ def plot_hist(
 			xlabel=None,
 			ylabel=None,
 			hline=None,
-			rotate=False
-
+			rotate=False,
+			x_range=None
 		):
 	num_trials = len(data)
-	obj = plt.hist(data, bins=num_bins,
-        edgecolor='black', linewidth=1.5, orientation='horizontal' if rotate else None)
+	obj = plt.hist(data, bins=num_bins, range=x_range,
+        edgecolor='black', linewidth=1.5, orientation='horizontal' if rotate else 'vertical')
 	if not rotate:
 		plt.xticks(
 			ticks=obj[1].tolist(), 
@@ -64,8 +64,8 @@ def plot_hist(
 	else:
 		plt.yticks(
 			ticks=obj[1].tolist(), 
-			labels=list(map(lambda x: '{:.1f}'.format(x), obj[1].tolist())), 
-			rotation=90)
+			labels=list(map(lambda x: '{:.0f}'.format(x), obj[1].tolist())), 
+			rotation=30)
 		plt.xticks(ticks=range(num_trials//num_y_ticks,num_trials+num_trials//num_y_ticks, num_trials//num_y_ticks), 
 		           labels=range(100//num_y_ticks,100+100//num_y_ticks, 100//num_y_ticks))
 		plt.grid(True, axis='x')
